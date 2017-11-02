@@ -1,0 +1,32 @@
+如果输入$ git remote add origin git@github.com:landyandchole（github帐号名）/LXM（项目名）.git //设定origin
+
+    提示出错信息：fatal: remote origin already exists.
+
+    解决办法如下：
+
+    1、先输入$ git remote rm origin
+
+    2、再输入$ git remote add origin git@github.com:landyandchole/LXM.git 就不会报错了！
+
+
+
+
+
+git init	//初始化
+git config user.name "landyandchole"	//账号名称
+git config user.email "2990988394@qq.com"	//账号对应邮箱，这两个不写的话会有please tell me who you are
+git add *	//*代表本目录下全部文件
+//git add .//用这个，出现git warning: LF will be replaced by CRLF in的话
+使用
+$ rm -rf .git  // 删除.git  
+$ git config --global core.autocrlf false  //禁用自动转换 
+然后重新执行
+$ git init    
+$ git add . 
+git commit -m "对文件的注释"	//加入到本地仓库
+git push	//上传至服务器，会要求输入账号及密码
+//push之前要先pull
+//看这里
+git pull origin master --allow-unrelated-histories
+git merge master 
+git push origin master
