@@ -1,0 +1,6 @@
+ 原来要先入以下代码才可以：
+
+set serveroutput on;
+
+
+之后再用dbms_output.put_line输出就可以了。
