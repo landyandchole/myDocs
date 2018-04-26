@@ -1,0 +1,14 @@
+可选项：样式
+<link rel="stylesheet" href="static/ace/css/datepicker.css" />
+必选：bootstrap支持
+<!-- 日期框 -->
+<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
+在html中写上这个：
+<td><input class="span10 date-picker" name="BIRTHDATE" id="BIRTHDATE" value="${pd.BIRTHDATE}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="出生年月" title="出生年月" style="width:60%;"/></td>
+在js中写上这个：(前边的input标签中class包含date-picker)
+<script type="text/javascript">
+	$(function(){
+		//日期框
+		$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
+	});
+</script>

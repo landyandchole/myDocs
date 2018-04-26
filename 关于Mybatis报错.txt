@@ -1,0 +1,6 @@
+1.Invalid bound statement (not found)
+应该去检查你写sql的xml的namespace与dao接口的全类名是否一致
+还要去检查你扫描mapper的地方，看看路径正不正确
+
+2.Parameter '__frch_item_0' not found.
+出现在批量插入中，大概率是xml中你参数名字写错了

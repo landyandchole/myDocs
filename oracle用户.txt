@@ -1,0 +1,8 @@
+普通用户：SCOTT（密码：tiger）
+普通管理员：SYSTEM（密码：manager）
+超级管理员：SYS（密码：change_on_install）
+
+ 
+
+ 
+

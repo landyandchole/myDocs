@@ -1,0 +1,8 @@
+修改jenkins账户权限：
+为什么要修改权限？
+因为做自动部署时，执行shell中的命令，会有对tomcat的webapps文件夹下的文件进行的操作，
+这属于tomcat账号的管辖范围，所以就会出现jenkins权限不足的情况
+修改办法：
+vim /etc/sysconfig/jenkins
+将JENKINS_USER="jenkins"
+修改为JENKINS_USER="root"

@@ -1,0 +1,110 @@
+DELIMITER	//
+CREATE	PROCEDURE	edit_pc(
+	IN	INPC_NO	VARCHAR(255),
+	IN	INBRAND	VARCHAR(255),
+IN	INRAM	VARCHAR(255),
+IN	INHDISK	VARCHAR(255),
+IN	INCHIP	VARCHAR(255),
+IN	INTYPE	VARCHAR(255),
+IN	INPROGRAM	VARCHAR(255),
+IN	INOS	VARCHAR(255),
+IN	INDEPOT	VARCHAR(255),
+IN	INDEFECTS_LIABILITY_PERIOD	VARCHAR(255),
+IN	INCOST	VARCHAR(255),
+IN	ING_TIME	VARCHAR(255),
+IN	INMAC	VARCHAR(255),
+IN	INLEVEL	VARCHAR(255),
+IN	INROOM	VARCHAR(255),
+IN	INFLOOR	VARCHAR(255),
+IN	INROOM_NAME	VARCHAR(255),
+IN	INNOTE	VARCHAR(255),
+IN	INATTRIBUTION	VARCHAR(255),
+IN	INPC_ID	VARCHAR(255)	
+)
+BEGIN
+UPDATE	PC_LIST
+SET	PC_NO 	=	INPC_NO,
+	BRAND	=	INBRAND,
+RAM	=	INRAM,
+HDISK	=	INHDISK,
+CHIP	=	INCHIP,
+TYPE	=	INTYPE,
+PROGRAM	=	INPROGRAM,
+OS	=	INOS,
+DEPOT	=	INDEPOT,
+DEFECTS_LIABILITY_PERIOD	=	INDEFECTS_LIABILITY_PERIOD,
+COST	=	INCOST,
+G_TIME	=	ING_TIME,
+MAC	=	INMAC,
+LEVEL	=	INLEVEL,
+ROOM	=	INROOM,
+FLOOR	=	INFLOOR,
+ROOM_NAME	=	INROOM_NAME,
+NOTE	=	INNOTE,
+ATTRIBUTION	=	INATTRIBUTION
+WHERE	
+PC_ID	=	INPC_ID;
+END	//
+DELIMITER	;
+
+==========================================================
+select	`name` 	from	mysql.proc where db = 'hrms' and `type` = 'PROCEDURE'
+
+==========================================================
+<!-- ÐÞ¸Ä -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+		    PC_NO = #{PC_NO},
+		    BRAND = #{BRAND},				
+			RAM = #{RAM},						
+			HDISK = #{HDISK},
+			CHIP = #{CHIP},
+			TYPE = #{TYPE},
+			PROGRAM = #{PROGRAM},
+			OS = #{OS},
+			DEPOT = #{DEPOT},
+			DEFECTS_LIABILITY_PERIOD = #{DEFECTS_LIABILITY_PERIOD},
+			COST = #{COST},	
+			G_TIME = #{G_TIME},
+			MAC = #{MAC},
+			LEVEL = #{LEVEL},
+            ROOM = #{ROOM},
+            FLOOR = #{FLOOR},
+            ROOM_NAME = #{ROOM_NAME},
+			NOTE = #{NOTE},
+			ATTRIBUTION = #{ATTRIBUTION}
+		where 
+		PC_ID = #{PC_ID}
+	</update>
+
+
+============================================================
+<!-- ÐÞ¸Ä -->
+	<update id="edit" parameterType="pd" statementType="CALLABLE">
+		{
+			call edit_pc(
+				#{PC_NO,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{BRAND,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{RAM,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{HDISK,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{CHIP,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{TYPE,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{PROGRAM,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{OS,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{DEPOT,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{DEFECTS_LIABILITY_PERIOD,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{COST,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{G_TIME,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{MAC,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{LEVEL,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{ROOM,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{FLOOR,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{ROOM_NAME,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{NOTE,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{ATTRIBUTION,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR},
+				#{PC_ID,mode=IN,javaType=java.lang.String,jdbcType=VARCHAR}
+			)
+		}
+	</update>

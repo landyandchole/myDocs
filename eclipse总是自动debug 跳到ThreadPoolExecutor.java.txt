@@ -1,0 +1,3 @@
+
+出现这种状况是因为Eclipse默认开启挂起未捕获的异常(Suspend execution on uncaught exceptions)，只要关闭此项就可以了。
+解决方法：在eclipse中选择Window->Preference->Java->Debug，将“Suspend execution on uncaught exceptions”的勾去掉即可。

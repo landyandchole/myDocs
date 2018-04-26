@@ -1,0 +1,7 @@
+centos上边不能直接通过wget命令安装JDK，需要加上以下前缀
+
+wget --no-cookie --header "Cookie: oraclelicense=accept-securebackup-cookie"
+
+于是，我想要下一个linux64位的JDK应该这么做
+
+wget --no-cookie --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz

@@ -1,0 +1,15 @@
+#!/bin/sh
+#如果有，删除原有工程war包
+rm -f /var/lib/jenkins/workspace/springMaven.war
+#打包原有工程
+jar -cvfM0 /var/lib/jenkins/workspace/springMaven.war /var/lib/jenkins/workspace/myFirstProject
+#如果有，删除webapps下的工程war包
+rm -f ~/apache-tomcat-9.0.4/webapps/springMaven.war 
+#copy API工程的配置文件
+cp -r /var/lib/jenkins/workspace/springMaven.war apache-tomcat-9.0.4/webapps/springMaven.war 
+#重启tomcat
+#bash /data/apache-tomcat-7.0.56/bin/shutdown.sh
+
+#sleep 30s
+
+#bash /data/apache-tomcat-7.0.56/bin/startup.sh
