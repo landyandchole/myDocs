@@ -1,0 +1,14 @@
+<insert id="insertProviderInfo" parameterType="Map">
+		INSERT INTO tb_ilc_clue_provider_info 
+		<if test="sprovidertype==1">
+			(SCLUECODE,SBODYTYPECODE,SNAME,SMAINBODYCODE,SPROVIDERTYPE) VALUES (#{scluecode},#{sbodytypecode},#{grname},#{smainbodycode},#{sprovidertype})
+		</if>
+		<if test="sprovidertype==2">
+			(SCLUECODE,SNAME,SCORPORATE,SPROVIDERTYPE)	VALUES	(#{scluecode},#{dwname},#{scorporate},#{sprovidertype})
+		</if>
+</insert>
+
+1.我们要注意，动态SQL test部分，参数是不用写#{}的，写了会报For input string: "{2=null}"的错误（我参数#{sprovidertype}==2）
+2.判断等于要用==
+3.不要写成  test="sprovidertype=='2'"  
+但是你可以写成这个样子 test='sprovidertype=="2"'
