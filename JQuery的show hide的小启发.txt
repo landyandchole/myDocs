@@ -1,0 +1,6 @@
+关于show hide，我们一定是会有像change()这样的方法，不同的if分支显示和隐藏不同的东西
+但是问题就出来了，我们比如最一开始，设定某个radio checked="checked"，那么，最开始的界面一定没有执行change()方法
+可是我们确实不想让一些东西显示出来，这个时候，我们会发现$(function(){})并没有用处，讲hide和show写在里面无用
+那我们换一种方法，在html里定义，不让他显示，不就可以了
+于是，在style中加上以下语句
+style="display:none"
