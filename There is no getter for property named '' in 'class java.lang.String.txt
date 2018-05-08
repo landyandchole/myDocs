@@ -1,0 +1,14 @@
+https://blog.csdn.net/qing_gee/article/details/47122227
+这里有详解，我只记一下解决方法
+这个问题是出在你使用mybatis动态sql的时候
+你出现了判断语句
+<if test="dsrName!=null and dsrName!=''"></if>
+
+这个dsrName是我们传进来的参数，类型是String，如果没有这个判断，我们是可以正常执行的
+
+但是如果有了这个判断语句，我们的判断语句中的参数要改成    _parameter
+像下边这样
+<if test="_parameter!=null and _parameter!=''">
+	SNAME	LIKE	concat(concat("%",#{dsrName}),"%")
+</if>
+sql中的参数是不用改的
