@@ -1,0 +1,12 @@
+Dao层
+public List<Map<String, Object>> selectUserIntime(String string);
+
+Mapper.xml
+<select id="selectUserIntime" parameterType="java.lang.String" resultType="java.util.Map">
+
+注意，返回参数是一个Map，不是List
+
+传回前台,通过循环取值
+for(var i=0;i<data.length;i++){
+  	console.log(data[i].SNAME);
+}

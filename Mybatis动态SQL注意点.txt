@@ -12,3 +12,4 @@
 2.判断等于要用==
 3.不要写成  test="sprovidertype=='2'"  
 但是你可以写成这个样子 test='sprovidertype=="2"'
+但是你可以写成test="sprovidertype=='2'.toString()" 
