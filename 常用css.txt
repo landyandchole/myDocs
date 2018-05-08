@@ -1,0 +1,21 @@
+1.在本页面head直接写css
+<style type="text/css"></style>	
+2.<li>横向排布
+<head>
+<style type="text/css">
+#flash ul li {float:left;}
+</style>
+</head>
+<body>
+<div id="flash" style="position:fixed;z-index:999;margin-left:10.5%;background:white;width:66%">
+	<ul id="ul">
+		<li>11</li>
+		<li>22</li>
+		<li>33</li>
+	</ul>
+</div>
+</body>	
+3.<div>在最前
+style="position:fixed;z-index:999;"
+z-index-->越大越在前边，-1是在最后
+
