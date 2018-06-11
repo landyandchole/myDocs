@@ -1,0 +1,6 @@
+mapper要加上statementType="STATEMENT"参数（非预编译），这样，变量要用${},不能用#{}
+
+
+报错：There is no getter for property named 'tableName' in 'class java.lang.String'
+在dao层参数中加入@Param(value="tableName")
+eg：public List<Map<String, Object>> testselecttable(@Param(value="tableName") String string);

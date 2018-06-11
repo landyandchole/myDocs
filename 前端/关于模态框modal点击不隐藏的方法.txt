@@ -1,0 +1,23 @@
+某个模态框，我要实现必输框没有输入，alert报错，但模态框不关闭
+
+<button id="saveDsr" type="button" class="btn btn-primary"  onclick="saveDsr()">确定</button>
+<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+注意这里的确定按钮没有data-dismiss属性，如果有的话，会点击之后模态框隐藏
+
+function saveDsr(){
+	if(dsrName==""||id_number==""||home==""||postcode==""||tel==""){
+//	        	$("#saveDsr").attr("data-dismiss","show");
+	            tip = "带*为必输项，请确认全部输入";
+	            pass = false;
+	        }else{
+	        	$("#ctmodal").modal('hide');
+	            tip = "输入成功";
+	            pass = true;
+	        }
+
+}
+所以，用这个
+$("#ctmodal").modal('hide');
+不要给$("#saveDsr").attr("data-dismiss","show");
+不管用的

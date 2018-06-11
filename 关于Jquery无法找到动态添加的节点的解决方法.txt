@@ -1,0 +1,9 @@
+$('父元素').on('click','动态的子元素',function(){});   单引号还是双引号无所谓
+
+比如你返回了一个<button class='btn'></button>
+dom读取结束后，你的页面为
+<div id="div">
+	<button class='btn'></button>
+</div>
+执行点击按钮事件
+$("#div").on("click",".btn",function(){})

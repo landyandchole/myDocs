@@ -1,0 +1,2 @@
+Value '0000-00-00 00:00:00' can not be represented as java.sql.Timestamp
+库内有0000-00-00 00:00:00这个错误时间，因为MySQL的时间类型datetime范围是1000-01-01 00:00:00 到 9999-12-31 23:59:59，所以报错。

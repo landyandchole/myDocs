@@ -1,0 +1,9 @@
+有一点要注意，如果我在AController中想调用BController中的A方法，千万   不要   
+在AController中
+BController bcontroller = new BController();
+bcontroller.A();
+这时，如果你的BController 中，有@Autowired  private Bservice bservice;
+这时，自动注入将会失效
+所以我们想用BController中的方法，直接也对BController做自动注入就可以了
+@Autowired  private BController bController
+bController.A();

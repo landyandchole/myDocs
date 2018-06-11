@@ -1,0 +1,9 @@
+ CSS opacityµÄ¼æÈÝÐ´·¨
+
+opacity{
+
+¡¡¡¡¡¡opacity:0.5;
+
+¡¡¡¡¡¡filter:alpha(opacity=50);  //filter ¹ýÂËÆ÷   ¼æÈÝIE678
+
+}
