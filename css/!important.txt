@@ -1,0 +1,10 @@
+div { color: #f00 !important; 
+	color: #000; }
+
+!important指定样式优先
+
+ie6及以下的浏览器不支持这种写法，于是我们可以做到，ie6以上的浏览器，颜色显示是#f00，ie6及以下颜色显示是#000
+如果想让ie6及以下正确显示颜色，就不能写在一起，应该这样做
+div { color: #f00 !important; } 
+
+div { color: #000; }

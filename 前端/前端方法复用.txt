@@ -1,0 +1,69 @@
+function common(){
+	var time = $("#currentTime2").val();
+}
+
+function save(){
+	common();
+console.log(time);
+	$.ajax({
+				type:"POST",
+				url:'../../jump/test02',
+				dataType:"json",
+				data:{jbryj:jbryj,jdjc_name:jdjc_name,tag:tag,time:time},
+				success:function(data){
+					alert("success!!");	
+					console.log(data);
+				},
+				error:function(data){
+					alert("ERROR!!!");
+				}
+		})
+}
+==============上边是错误写法==============================分割线==================================
+
+var common = function () {
+            this.time = $("#currentTime2").val();
+        }
+
+        function save(){
+            var _common = new common();
+            console.log(_common.time);
+            $.ajax({
+                type:"POST",
+                url:'../../jump/test02',
+                dataType:"json",
+                data:{jbryj:jbryj,jdjc_name:jdjc_name,tag:tag,time:time},
+                success:function(data){
+                    alert("success!!");
+                    console.log(data);
+                },
+                error:function(data){
+                    alert("ERROR!!!");
+                }
+            })
+        }
+		
+		
+		
+var common = {
+            time : function () {
+                return $("#currentTime2").val()
+            }
+        }
+
+        function save(){
+            console.log(common.time);
+            $.ajax({
+                type:"POST",
+                url:'../../jump/test02',
+                dataType:"json",
+                data:{jbryj:jbryj,jdjc_name:jdjc_name,tag:tag,time:time},
+                success:function(data){
+                    alert("success!!");
+                    console.log(data);
+                },
+                error:function(data){
+                    alert("ERROR!!!");
+                }
+            })
+        }

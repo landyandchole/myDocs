@@ -1,0 +1,17 @@
+visible:false
+
+eg:
+var dbColumns=[ 
+	{
+		field: 'taskId',
+		title: '流程主键',
+		valign: 'middle', // 上下居中
+		align : 'center',
+		visible:false //隐藏列
+	},
+	{
+		field: 'dbsx',
+		title: '待办事项',
+		valign: 'middle', // 上下居中
+		align : 'center'
+	}
