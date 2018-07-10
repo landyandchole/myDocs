@@ -1,0 +1,15 @@
+当点击  删除  按钮，执行一个方法
+<td><button onclick="deletePartyMember(this)" type="button" value="" class="btn btn-primary">删除</button></td>
+
+我们可以看到，我传了一个this作为参数，这样，我的js就要这么写
+function deletePartyMember(thisRow){
+	$(thisRow).parent().parent().remove();
+}
+这里的参数thisRow不需要提前定义(var , let)
+但是不能写this，会报错
+
+$(thisRow)找到的是button,所以他(button)的父节点(parent)是<td>,
+<td>的父节点是<tr>,这样就找到了<tr>然后remove()
+
+
+另外，如果我不传this作为参数,而是直接在js中取this或者$(this),那么我取到的是window，就是整个页面

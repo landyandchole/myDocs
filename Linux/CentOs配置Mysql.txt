@@ -1,0 +1,91 @@
+1.修改mysql目录所有者和组
+
+修改mysql安装目录
+
+cd /usr/local/mysql
+chown -R mysql:mysql .
+
+ 
+
+修改mysql数据库文件目录
+
+cd /data/mysqldb
+chown -R mysql:mysql .
+
+2.启动MySQL
+初始化mysql数据库
+
+cd /usr/local/mysql
+scripts/mysql_install_db --user=mysql --datadir=/data/mysqldb
+
+
+mysql配置文件
+
+cp /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf 
+
+
+配置MySQL
+[client] 
+#password       = your_password 
+port            = 3306 
+socket          = /data/mysql/mysql.sock 
+default-character-set=utf8 
+# Here follows entries for some specific programs
+
+# The MySQL server 
+[mysqld] 
+port            = 3306 
+character_set_server=utf8 
+basedir=/usr/local/mysql 
+datadir=/data/mysqldb 
+socket          = /data/mysql/mysql.sock 
+skip-external-locking 
+key_buffer_size = 16M 
+max_allowed_packet = 1M 
+table_open_cache = 64 
+sort_buffer_size = 512K 
+net_buffer_length = 8K 
+read_buffer_size = 256K 
+read_rnd_buffer_size = 512K 
+myisam_sort_buffer_size = 8M
+
+
+将MySQL执行命令添加入PATH
+
+vim /etc/profile
+
+ 
+
+在文件的末尾添加内容：
+
+PATH=$PATH:/usr/local/mysql/bin
+export PATH
+
+ 
+
+保持退出后，执行：
+
+source /etc/profile
+
+ 
+
+ 
+将MySQL设置为系统服务并启动服务
+
+cp support-files/mysql.server /etc/init.d/mysqld
+
+ 
+
+即，MySQL可以以如下形式启动：
+
+service mysqld start
+
+ 
+
+如果报错 "Starting MySQL. ERROR! The server quit without updating PID file (/data/mysql/rhelubuntu.com.pid). " 则修改
+
+vim  /etc/init.d/mysqld
+
+修改basedir=/usr/local/mysql             -----mysql安装位置
+
+修改datadir=/data/mysqldb        	 -----mysql数据文件存放位置

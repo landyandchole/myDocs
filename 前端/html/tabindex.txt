@@ -1,0 +1,3 @@
+tabindex 属性规定元素的 tab 键控制次序（当 tab 键用于导航时）。
+默认的tabIndex属性为 0 ，将排列在在所有指定tabIndex的控件之后。
+将tabIndex赋值为-1，则在使用[Tab]键时，此元素被忽略。

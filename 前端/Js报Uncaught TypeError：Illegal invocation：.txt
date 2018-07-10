@@ -1,0 +1,4 @@
+Uncaught TypeError:Illegal invocation：
+中文意思是：未捕获的异常：非法调用
+
+很有可能是在js中使用变量却没有提前声明他

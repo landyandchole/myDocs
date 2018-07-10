@@ -1,0 +1,8 @@
+mysql -h192.168.200.232 -ulawcase -plc123456//登录远程数据库
+
+use dbtest;//这里是你所要用到的数据库
+set names utf8;//这里就是这么写
+source D:/www/sql/back.sql;//你所要导入的sql的全路径
+
+
+详情：https://www.cnblogs.com/gaogaoxingxing/p/6066533.html

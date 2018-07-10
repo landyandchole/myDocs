@@ -1,0 +1,19 @@
+这次在产生“案源登记号”“线索编号”时，因为该号的结构是    市局案源[2018]5     我就想当然
+取该字段最后一位的最大值+1	
+SELECT	MAX(RIGHT(SREALCLUECODE,1))	MAX
+FROM	TB_ILC_CLUE_HEAD
+，来产生新的编号，但你有没有想过，最后一位，单单一位，那么它的最大值就是9
+9+1=10，它的最后一位就是0，所以最大的最后一位编号还是9，于是，你接下来产生的所有编号都是    市局案源[2018]10
+
+于是截取“]”后边的东西，用到了SUBSTRING_INDEX
+我写了这样的
+	SELECT	
+		MAX(SUBSTRING_INDEX(SCLUENUMBER,']',-1))
+		FROM	TB_ILC_CLUE_HEAD
+-1，就是指右边的，我本以为会是10，因为我最大的编号是   市局案源[2018]10
+但，他显示的是9
+
+这样可以解决问题
+	SELECT	
+		MAX(SUBSTRING_INDEX(SCLUENUMBER,']',-1)+0)
+		FROM	TB_ILC_CLUE_HEAD
