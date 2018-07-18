@@ -1,0 +1,20 @@
+<div>
+<input id="grname" type="text" placeholder="请输入姓名">
+</div>
+
+<script>
+$(function(){
+	$("#grname").attr("id","ass"+1-2);//<input id="NaN" type="text" placeholder="请输入姓名">//拼字符串没有减号
+})
+</script>
+
+<script>
+$(function(){
+	$("#grname").attr("id","ass"+1-2);//<input id="ass12" type="text" placeholder="请输入姓名">
+})
+</script>
+
+因为他默认你是拼字符串，所以你真想实现1+2
+$("#grname").attr("id","ass"+（1+2）);
+
+引申到java,你String str="AA";str = str+1+2;sysout(str);//AA12

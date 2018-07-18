@@ -1,0 +1,3 @@
+使用for关键字(lable中的for，绑定radio的id)
+<input type="radio" id="male" name="sex" value="1" />  <label for="male">男</label> 
+<input type="radio" id="female" name="sex" value="2" />  <label for="female">女</label>  

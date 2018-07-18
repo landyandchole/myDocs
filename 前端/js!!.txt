@@ -1,0 +1,24 @@
+js中的感叹号(!),和我们想的一样，取反
+那么两个感叹号(!!):取反再取反，负负为正，那有毛用啊？
+其实，第一次我们！的时候，把变量变成了  布尔型  
+eg:	!null=true
+	!undefined=true
+	!''=true
+	!0=true
+	!1=false
+	!100=false
+	!'abc'=false
+于是可以得到
+eg:	!!null=false
+	!!undefined=false
+	!!''=false
+	!!0=false
+	!!1=true
+	!!100=true
+	!!'abc'=true
+所以我们前端判空，不必要这么写
+if(name != null && name != undefined && name != ""){}
+
+这么写就好了
+if(!!name){}
+前提你的name不要是0这样的数字(因为!!0=false,但是你的name确实有值啊)，这东西只用作空判
