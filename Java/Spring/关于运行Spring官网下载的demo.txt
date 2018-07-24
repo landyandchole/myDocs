@@ -1,0 +1,16 @@
+1.yinweiwomenxuyaoweb工程，所以选择在右边添加依赖web。下载的demo无法直接运行，需要自己建一个Maven工程，将代码导进去
+2.因为我们下载了springboot的quickstart，但是我们却没有springboot运行所依赖的jar，所以会报
+Missing artifact org.springframework.boot:spring-boot-starter-parent:jar:2.0.3.RELEASE
+解决方法：在<parent>上边添加
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.0.3.RELEASE</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>   
+    </dependencies>
+</dependencyManagement>
+3.顺便可能需要多试几次maven install，毕竟网不太好

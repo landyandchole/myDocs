@@ -1,0 +1,39 @@
+1.先去官网下一个demo
+2.这个东西有一个class专门作为启动类，demo中叫DemoApplication.java,这个类上要有注解@SpringBootApplication
+3.DemoApplication.java如果想扫描到我们的Controller，要将他放在Controller包的同级或者包外，考虑到他还要扫描service，所以放在根目录比较稳妥
+4.启动项目不是run as tomcat，虽然它会自己这么做，点击DemoApplication.java右键run as java Application
+5.扫描自定义包，加入注解@ComponentScan("com.example.demo.controller")//包名
+eg:
+@SpringBootApplication
+@RestController
+@ComponentScan("com.example.demo.controller")//包名
+public class DemoApplication {
+
+	@RequestMapping("/")
+	public String index() {
+		return "I Love Spring!";
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+}
+
+这里，如果输入http://localhost:8080/  就可以输出I Love Spring!    8080是默认端口
+
+
+6.**********************************很重要*********************************
+和springmvc不同，springboot不需要在url上输入项目名称，所以如果你有controller
+@SpringBootApplication
+@RestController
+@RequestMapping("/test")
+public class TestController {
+
+	@GetMapping("/get1")
+	private ResultBean get1() {
+		System.out.println("TestController.get1()");
+		return new ResultBean("get1() ok");
+	}
+}
+
+你只需输入http://localhost:8080/test/get1
+即可访问

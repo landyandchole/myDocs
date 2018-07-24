@@ -1,0 +1,4 @@
+var str="111,222,333";
+if(str.indexOf(",")>=0){
+	console.log("×Ö·û´®ÀïÓÐ¶ººÅ");
+}
