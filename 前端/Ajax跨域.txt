@@ -1,0 +1,92 @@
+产生：
+1.跨域发生时，指的是访问的后台方法和你目前所处url 协议，域名，端口号任一或多个不同
+2.跨域发生时，后台方法是正常访问的，但是浏览器会将他拦截
+3.发出XHR(XMLHttpRequest)请求时，才会发生跨域安全警报    XHR==>ajax发出的都是这种请求
+
+解决：
+1.修改浏览器逻辑（没啥用处）
+2.让发出的请求不是XHR类型的==>jsonp
+3.解决跨域
+	1）被调用方修改：修改代码，告知浏览器不要拦截某一特定域名(在相同公司可以办到)
+	2）调用方修改：使用代理
+
+1.禁用浏览器校验：
+cmd cd 到浏览器可执行文件的路径
+eg:"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"  ==>cd C:\Program Files (x86)\Google\Chrome\Application\
+执行
+chrome  --disable-web-security
+
+2.jsonp解决跨域：（发出的类型不是XHR，虽然jquery把它放在了ajax类型中==>dataType:jsonp  但是其实jsonp和ajax没有什么联系）
+将你取到的值包裹在<script></script>标签中
+弊端：
+2.1服务器需要修改代码支持
+@ControllerAdvice
+public class JsonpAdvice extends AbstractJsonpResponseBodyAdvice {
+	public JsonpAdvice() {
+		super("callback","jsonp");
+	}
+}
+2.2只支持GET==>因为jsonp其实传递了两个参数==>calback和_
+http://localhost:8080/test/get1?callback=jQuery111109518138716446334_1532418534949&_=1532418534950
+callback参数要和后台的super中的参数一样，通过
+$.ajax({
+	jsonp:"callback2"来修改
+})
+_参数是防止缓存用的，如果你改成
+$.ajax({
+	cache:true
+})
+参数就  不会  存在
+
+
+3.
+3.1被调用方解决 - 支持跨域==>响应头里增加字段
+1）服务器端实现
+浏览器会先执行后端方法再做跨域判断，所以你会看到后端方法是200
+跨域会在响应头里有一个Origin字段，是目前浏览器的url，如果浏览器发现头中有Origin字段，他就会在头中
+找你有没有允许跨域的字段
+
+Filter实现跨域
+在启动类里添加：
+@Bean//注册一个filter
+public FilterRegistrationBean reFilterRegistrationBean(){
+	FilterRegistrationBean bean = new FilterRegistrationBean();
+	bean.addUrlPatterns("/*");//所有的请求都要经过Filter
+	bean.setFilter(new CrosFilter());
+	return bean ;
+}
+新建一个CrosFilter类：public class CrosFilter implements Filter    实现Filter接口
+重写doFilter()方法,为header添加Access-Control-Allow-Origin，Access-Control-Allow-Methods两参数
+@Override
+public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+		throws IOException, ServletException {
+	HttpServletResponse res = (HttpServletResponse) response;
+	res.addHeader("Access-Control-Allow-Origin", "http://localhost:8081");//res.addHeader("Access-Control-Allow-Origin", "*");
+	res.addHeader("Access-Control-Allow-Methods", "GET,POST");//res.addHeader("Access-Control-Allow-Methods", "*");
+	chain.doFilter(request, response);
+}
+
+3.2带Cookie的跨域
+Access-Control-Allow-Origin:*     不支持带Cookie的跨域，不能使用*，要求给与他一个和当前域名完全相同的域名
+如果想使用带Cookie的跨域，还要在doFilter()方法加上
+res.addHeader("Access-Control-Allow-Credentials","true");
+
+
+
+4.简单请求和非简单请求
+简单请求：通常type为get，head，post    没有人为修改header里边的属性
+非简单请求：
+1）put，delete方法的ajax请求
+2）发送json格式的ajax请求（contentType:"application/json;charset=utf-8",）
+3）带自定义头的ajax请求
+
+非简单请求出现跨域时，会先发送一个 “预检命令”  OPTIONS
+如果有这个预检命令，如果我们在ajax中存在contentType:"application/json;charset=utf-8",
+那么我们的request header中就会存在Access-Control-Request-Headers:content-type   这时就会报错
+我们可以在doFilter()方法加上这个
+res.addHeader("Access-Control-Request-Headers","Content-Type");
+这样我们的response header中就可以加上这个字段
+
+还有我们不想让他每次都发预检命令：
+在doFilter()方法加上这个
+res.addHeader("Access-Control-Max-Age","3600");//保证3600秒内缓存此请求，在3600秒内不再发出预检命令

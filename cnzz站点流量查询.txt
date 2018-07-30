@@ -1,0 +1,6 @@
+https://www.cnblogs.com/zfyouxi/p/5379652.html
+
+这东西会在你的cookie里会加上    UM_distinctid    CNZZDATA
+
+引用：
+<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>

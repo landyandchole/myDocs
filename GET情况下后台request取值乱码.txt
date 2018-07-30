@@ -1,0 +1,5 @@
+因为UTF-8下，一个中文3个字符，太长，浏览器会将编码改变为ISO8859-1传给后台，
+所以我们在后台取，就要将他从ISO8859-1转化为UTF-8
+String flowName = request.getParameter("flowName");//URLDecoder.decode(request.getParameter("flowName"), "UTF-8");
+flowName = new String(flowName.getBytes("ISO8859-1"),"UTF-8");
+
