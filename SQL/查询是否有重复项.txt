@@ -1,0 +1,6 @@
+select code,count(*) count from tb_cfcusper_users 
+group by code
+having count>1
+
+
+记得group by是和having搭配的啊

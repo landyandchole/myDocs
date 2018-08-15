@@ -1,0 +1,13 @@
+	@Test
+	public void test03() {
+		String str = "abc123";
+		String str2 = str.replace("b", "Z");
+		System.out.println(str);
+		System.out.println(str2);
+	}
+
+输出：
+abc123
+aZc123
+
+所以，可以看出，replace是不能改变原有字符串的值的

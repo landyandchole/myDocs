@@ -1,0 +1,9 @@
+ @Test
+	@Override
+	protected Object determineCurrentLookupKey() {
+        String dataSource = getDataSource();
+        _log.info("当前操作使用的数据源：{}", dataSource);
+        return dataSource;
+	}
+
+junit只能测试public方法，还要注意static方法junit    不能    测试

@@ -1,0 +1,5 @@
+报错： 
+SQL state [null]; error code [-99999]; Jdbc type 1111 not yet supported.
+
+解决：参数为空时，要加上他的jdbcType类型
+#{date,jdbcType=TIMESTAMP}

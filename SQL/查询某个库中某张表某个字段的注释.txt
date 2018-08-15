@@ -1,0 +1,1 @@
+SELECT t.column_comment FROM COLUMNS t WHERE t.TABLE_SCHEMA='database_name' AND t.TABLE_NAME='table_name' AND t.COLUMN_NAME='column_name ';

@@ -1,0 +1,20 @@
+var str = "a,b,c";
+//console.log(str.split(','));==>Array(3)["a","b","c"]
+//console.log(str.split(',').reverse());==>Array(3)["c","b","a"]
+str = str.split(',').reverse().join(',');//用split函数拆分成数组对象，再用reverse函数将数组倒序排列
+
+如果你在新的字符串中不想要逗号，或者想用#代替分隔符
+str = str.split(',').reverse().join('');//console.log(str);==>cba
+str = str.split(',').reverse().join('#');//console.log(str);==>c#b#a
+
+注意，只要使用了reverse()   他是会直接修改你原有的数组
+但是，string本身不可变性，你使用了split(),如果不给一个新的引用的话，值是不会变的
+join()也需要把值赋给一个新的变量var str2 = str.join();
+eg:
+var str = "a,b,c,d,e,f,g";//声明一个字符串
+str.split(',');
+console.log(str);//a,b,c,d,e,f,g
+str = str.split(',');
+console.log(str);//Array(7)["a","b","c","d","e","f","g"]
+str.reverse();
+console.log(str);//Array(7)["g","f","e","d","c","b","a"]

@@ -1,0 +1,3 @@
+jquery.min.js:5 Failed to load file:///D:/approval_district/addparty: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
+
+因为直接拖进去，用的是file协议，可以看出，cross并不支持file协议，因为这样，我们最好的办法就是允许浏览器跨域，方法详见之前的Ajax跨域.txt

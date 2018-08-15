@@ -1,0 +1,2 @@
+LinkedList:插入快，查询慢
+ArrayList:插入慢，查询快

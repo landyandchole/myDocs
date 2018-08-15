@@ -6,3 +6,6 @@ source D:/www/sql/back.sql;//你所要导入的sql的全路径
 
 
 详情：https://www.cnblogs.com/gaogaoxingxing/p/6066533.html
+
+
+
