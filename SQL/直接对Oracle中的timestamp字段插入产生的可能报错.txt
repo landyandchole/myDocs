@@ -1,0 +1,7 @@
+正确的写法
+insert into lawcase_clue(scluecode,sclueaccepttime,scluefinishtime)
+values('001',to_timestamp('2018-08-16 10:47:33','yyyy-MM-dd HH:mi:ss'),to_timestamp('2018-08-17 10:47:33','yyyy-MM-dd HH:mi:ss'))
+
+如果不加to_timestamp，会报错ORA-01843:无效月份的问题
+如果写成了yyyy-MM-dd HH:mm:ss    注意，Oracle会把MM和mm混为一谈，所以他也不知道具体是月份还是分钟，报错ORA-01810格式代码出现两次
+如果时间写成2018-08-16 10:47:33.0    因为格式在秒后边没有小数位，会报错ORA-01830: 日期格式图片在转换整个输入字符串之前结束

@@ -1,0 +1,50 @@
+1.在pom文件中加入
+<dependency>
+	<groupId>org.activiti</groupId>
+	<artifactId>activiti-spring-boot-starter-basic</artifactId>
+	<version>5.22.0</version>
+</dependency>
+
+2.Failed to instantiate [org.activiti.spring.SpringProcessEngineConfiguration]:
+Error creating bean with name 'springProcessEngineConfiguration'
+class path resource [processes/] cannot be resolved to URL
+这些错误出现时
+在application.yml中的spring:最后加上
+    activiti:
+      check-process-definitions: false #启动时不检查流程文件
+
+eg：
+spring:
+    # 环境 dev|test|prod
+    profiles:
+        active: dev
+    http:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
+            enabled: true
+    redis:
+        database: 0
+        host: 192.168.10.10
+        port: 6379
+        password:      # 密码（默认为空）
+        timeout: 6000  # 连接超时时长（毫秒）
+        pool:
+            max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+            max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+            max-idle: 10      # 连接池中的最大空闲连接
+            min-idle: 5       # 连接池中的最小空闲连接
+    freemarker:
+      suffix: .html
+      request-context-attribute: request
+      
+    activiti:
+      check-process-definitions: false  #一定要注意缩进，不然会报错
+
+3.解决了2.中的问题可能会报错
+at org.activiti.engine.impl.db.DbSqlSession.dbSchemaUpdate(DbSqlSession.java:1082) 。。。。。
+这个是因为你表中的数据有问题，注意看这个表act_ge_property
+初始是有三条数据的，如果这三条数据没有，或者值不正确，就会报错，
+可能还会有其他的表有问题，但只需要使用官方jar包，反编译之后，可以在
+activiti-engine-5.22.0.jar-->org.activiti.db.create中找到建表sql，根据不同类型数据库有所不同（分为engine/history/identity三个sql）
+

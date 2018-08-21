@@ -1,0 +1,8 @@
+在执行install Maven报错
+	仅从类和接口静态导入
+	程序包org.junit不存在
+出现这些问题的原因
+<scope>test</scope>
+
+Maven项目一般是把测试@Test放在src/test/java，而不是放在src/main/java下
+maven在编译的时候,src/main/java下是不引用<scope>test</scope>的jar,而编译src/test/java下的测试这会引用<scope>test</scope>的jar
