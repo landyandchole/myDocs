@@ -1,0 +1,40 @@
+转换思路，不是使用动态添加，而是把所有html写在页面上，然后动态显示，和attr修改display:none一个思路
+使用<template>标签，这个标签内的内容默认是不可见的，你需要搭配<v-if>标签
+注意如果你打算使用<v-if>，你必须保证他紧跟着一个<v-else>或者<v-else-if>
+
+
+eg:
+<label class="radio-inline">
+	<input type="radio" name="dsrType" value="0" v-model="litigantType"/> 自然人
+</label>
+<label class="radio-inline">
+	<input type="radio" name="dsrType" value="1" v-model="litigantType"/> 商事主体
+</label>
+
+ <!-- 自然人 -->
+        <template v-if="litigantType === '0'">
+	        <div class="form-group" id="zrr">
+	        	<div class="col-sm-1 control-label">性别</div>
+	        	<div class="col-sm-5">
+	                <label class="radio-inline">
+	                	<input type="radio" name="status" value="0" v-model="status"/> 男
+	            	</label>
+	            	<label class="radio-inline">
+	                	<input type="radio" name="status" value="1" v-model="status"/> 女
+	            	</label>
+	            </div>
+	        	<div class="col-sm-1 control-label">年龄</div>
+	        	<div class="col-sm-5">
+	                <input type="number" class="form-control" v-model="workNum" style="width:100px !important;float:left;"/>
+	            </div>
+	        </div>
+        </template>
+        <!-- 商事主体 -->
+        <template v-else-if="litigantType === '1'">
+	        <div class="form-group" id="sszt">
+	        	<div class="col-sm-1 control-label" style="width:160px;">法定代表人或负责人</div>
+	        	<div class="col-sm-6">
+	                 <input type="text" class="form-control" style="cursor:pointer;"  placeholder="法定代表人或负责人"/>
+	            </div>
+	        </div>
+        </template>

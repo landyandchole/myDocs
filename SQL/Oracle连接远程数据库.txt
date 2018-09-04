@@ -1,0 +1,17 @@
+找到Oracle安装目录，找到\product\11.2.0\dbhome_1\NETWORK\ADMIN目录下的tnsnames.ora文件
+eg:
+F:\app\ayaya\product\11.2.0\dbhome_1\NETWORK\ADMIN\tnsnames.ora
+加入类似这个格式的配置
+eg:
+nsscjg =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.200.229)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = nsscjg)
+    )
+  )
+
+nsscjg:库名
+ip:192.168.200.229
+端口:1521

@@ -1,0 +1,28 @@
+select tab3.* from(
+select rownum rn,tab2.* from(
+select tab.* from(
+      select A.ID_ as taskId,A.NAME_ as noteName,to_char(A.CREATE_TIME_,'yyyy-MM-dd HH:mi:ss') as yjTime,
+        (SELECT  u.NAME FROM ACT_HI_TASKINST aht  
+        LEFT JOIN SYS_USER u on u.CODE=aht.ASSIGNEE_
+         WHERE aht.PROC_INST_ID_=A.PROC_INST_ID_ and  aht.END_TIME_ != '' AND  ROWNUM=1
+        ) AS userName,C.SCLUENAME as dbsx,C.SCLUECODE as keyCode,E.TASKNOTELINK as taskNoteLink,
+        G.NAME_ as flowName,A.PROC_INST_ID_ as processInsId
+        from ACT_RU_TASK A
+        left join ACT_RU_IDENTITYLINK B ON A.ID_=B.TASK_ID_
+        left join LAWCASE_CLUE C on C.SCLUEWORKFLOWID=A.PROC_INST_ID_
+        left join ACT_TASK_LINK E ON E.TASKNOTEID=A.TASK_DEF_KEY_
+        left join ACT_RE_PROCDEF F ON F.ID_=A.PROC_DEF_ID_
+        left join ACT_RE_DEPLOYMENT G ON G.ID_=F.DEPLOYMENT_ID_
+        WHERE B.USER_ID_='law001'
+    ) tab
+    ORDER BY tab.yjTime DESC)tab2
+    where rownum<=5)tab3
+    where rn>=1
+
+    
+Oracle没有limit关键字，但是他提供了rownum作为替代,注意不能使用   表别名.rowmun    这是不对的写法，rownum就是对应当前表格
+所以你括起来的话，rownum就代表你括起来的地方查出来的条数
+
+*****************************************************
+rownum不能用来查询  >  大于（或大于等于）的情况，所以，向上边例子那样，我们把要查的数据括起来，并在select处，加入字段
+rownum rn    这样，就可以得到这层查询所有条数的id(1~总条数)，我们在最外层使用   rn>你需要的num   就可以实现查询大于

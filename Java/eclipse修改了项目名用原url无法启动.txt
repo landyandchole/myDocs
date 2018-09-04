@@ -1,0 +1,3 @@
+你会发现，改了名字，你依旧需要用原名称的url去执行你需要的方法
+这时，找到你对应项目的.settings文件夹-->org.eclipse.wst.common.component-->修改<property name="context-root" value="springmaven"/>的value值为你现在的项目
+最后，需要刷新项目
