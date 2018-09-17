@@ -1,0 +1,22 @@
+这个东西其实对于我们变成没有太大影响。
+情景复原：在页面使session起作用，这时，重启tomcat
+原因：tomcat停止时，保存session资源，然后在重启服务后，会尝试恢复session。
+
+解决办法一：
+配置tomcat在关闭的时候就不去保存session资源。
+
+在server.xml中Context下添加如下的内容：
+<Manager className="org.apache.catalina.session.PersistentManager" saveOnRestart="false"/>
+<Store className="org.apache.catalina.session.FileStore"/>
+</Manager>
+
+解决办法二：
+将那些需要放在session的类进行序列化。
+也就是让类实现接口java.io.Serializable即可。
+
+比如你有一个UserInfoEntity实体类，你会在登录的时候，将UserInfoEntity实体类人员code，pwd保存到session中
+那么你只需
+
+public class UserEntity implements Serializable{}
+
+实现Serializable接口即可
