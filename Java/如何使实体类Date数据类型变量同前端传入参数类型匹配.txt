@@ -1,0 +1,11 @@
+	@InitBinder
+	public void initBinder(ServletRequestDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		CustomDateEditor customDateEditor = new CustomDateEditor(sdf, true);
+		binder.registerCustomEditor(Date.class, customDateEditor);
+	}
+
+在你实体类要传入方法所在的controller中加入这句话，
+顺便在实体类对应Date类型字段上加上这句话，可以直接规整你的数据类型
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date sclueaccepttime;//受理时间	Date

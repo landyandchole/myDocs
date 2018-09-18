@@ -1,0 +1,15 @@
+01-1月 -00 12.00.00.000000 上午
+你不管保存的是2000-01-01还是1900-01-01，Oracle的timestamp都会显示的是这串字符
+但是他们其实是不一样的
+你可以通过to_char来显示他的date类型
+eg:
+select to_char(sclueaccepttime,'yyyy-mm-dd HH:mi:ss') from LAWCASE_CLUE where scluecode = '85b9394b-1484-4041-8525-7ed1c4551f7c'
+
+得出
+2000-01-01 12:00:00
+
+这里要注意
+yyyy-mm-dd HH:mi:ss    是12小时制
+
+想要使用24小时制    yyyy-mm-dd hh24:mi:ss
+2000-01-01 00:00:00
