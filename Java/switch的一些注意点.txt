@@ -9,7 +9,7 @@ int b;
 		}
 
 switch括号中的变量类型只能是   int,String,enum（特别注意，long是不行的，但是byte可以）
-要注意的是，如果你括号里面写的是String类型，自然case后面的值也要是String类型的
+要注意的是，如果你括号里面写的是String类型，自然case后面的值也要是String类型的    ==>case后的值是会判断数据类型的
 
 
 case后只能跟常量，不能写成 case a:
