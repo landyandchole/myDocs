@@ -1,0 +1,8 @@
+类型转换异常，比如我们不可能将一个Employee转换成Manager
+
+于是事先判断两个对象是否是同属于同一个类
+
+Other other = new Other();	
+if(getClass() != other.getClass()){
+
+}throw new ClassCastException();

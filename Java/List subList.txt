@@ -1,0 +1,22 @@
+@Test
+	public void subListTest2() {
+		List<Object> list = new ArrayList<>();
+		list.add("a");
+		list.add("b");
+		list.add("c");
+		list.add("d");
+		List<Object> subList = list.subList(0, 0);
+		System.out.println(subList);//[]     //如果是List<Object> subList = list.subList(0, 1);==>//[a]
+		System.out.println(list);//[a, b, c, d]
+		System.out.println(list.size());//4
+		subList.add("Z");
+		subList.add("X");
+		subList.add("Y");
+		subList.add("AAAA");
+		System.out.println(list);//[Z, X, Y, AAAA, a, b, c, d]
+
+	}
+
+sublist之后产生的list并不是新new了一个List，他的引用的指向还是原先的list，这样，我们就可以通过sublist来修改原list，
+最显眼的就是我们可以在原list的任何位置加入我们想要加入的数据
+

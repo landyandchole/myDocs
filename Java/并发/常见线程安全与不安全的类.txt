@@ -1,0 +1,39 @@
+*
+StringBuilder:线程不安全
+StringBuffer:线程安全  ==>内部方法由synchronized修饰
+
+**
+SimpleDateFormat:线程不安全
+
+public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+main(){
+	update();
+}
+public static void update(){
+	try {
+		simpleDateFormat.parse("20000101");
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
+}		
+
+会抛出异常==>一定要注意，这里是只new了一个simpleDateFormat 对象的情况下，会报异常，如果每次执行都重新new一个simpleDateFormat 方法，则不会报错
+
+下面这样就不会报异常
+
+main(){
+	update();
+}
+public static void update(){
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+	try {
+		simpleDateFormat.parse("20000101");
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
+}
+
+
+JodaTime:==>DateTimeFormatter
+public static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyyMMdd");
+

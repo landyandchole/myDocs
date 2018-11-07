@@ -1,0 +1,52 @@
+CAS(compareAndSwap)
+在Unsafe类中
+
+public class AtomicExample {
+	
+	private static AtomicReference<Integer> count = new AtomicReference<Integer>(0);//初始化，值为0
+	public static void main(String[] args) {
+		count.compareAndSet(0, 2);//(expect,update)如果是某个值(expect)，更新成新的值(update)
+		count.compareAndSet(0, 1);
+		count.compareAndSet(1, 3);
+		count.compareAndSet(2, 4);
+		count.compareAndSet(3, 5);
+		System.out.println("count{}:"+count.get());
+	}
+}
+
+我们可以找到AtomicReference类中的compareAndSet(expect, update)方法
+
+    public final boolean compareAndSet(V expect, V update) {
+        return unsafe.compareAndSwapObject(this, valueOffset, expect, update);
+    }
+
+我们可以看到一个unsafe.compareAndSwapObject(this, valueOffset, expect, update);
+
+可以查出
+
+private static final Unsafe unsafe = Unsafe.getUnsafe();//可知我们需要的在Unsafe 类中
+
+Unsafe类中
+    public static Unsafe getUnsafe()
+    {
+        Class class1 = Reflection.getCallerClass();
+        if(!VM.isSystemDomainLoader(class1.getClassLoader()))
+            throw new SecurityException("Unsafe");
+        else
+            return theUnsafe;
+    }
+
+
+public final native boolean compareAndSwapObject(Object obj, long l, Object obj1, Object obj2);
+
+我们发现有native关键字，证明这是一个底层算法（C实现）
+目的就是比较工作内存中的数据是否与主存数据相同
+
+*CAS可能会出现的问题
+1.ABA问题:
+你只能对比目前工作内存和主内存中的数据（通过引用比较），你不能保证堆空间的数据没有被改变然后再变回来（1->2->1）
+
+解决方案:引入版本号，版本号相同才进行继续操作
+		AtomicStampedReference类中的compareAndSet()方法
+
+

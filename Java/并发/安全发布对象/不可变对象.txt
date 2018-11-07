@@ -1,0 +1,37 @@
+*不可变对象需要满足的条件
+1.对象创建以后其状态就不能修改
+2.对象所有域都是final类型
+3.对象是正确创建的（在对象创建期间，this引用没有逸出）
+
+*final
+1.修饰类:不能被继承
+
+2.修饰方法: ==> 一个类中的private方法会被隐性的设为final方法
+**锁定方法不被继承类修改
+**效率
+
+3.修饰变量：
+基本数据类型变量 ==> 初始化之后不能修改
+引用类型变量  ==> 初始化之后不能再指向另一个对象（但对象里面的值是可变的）
+eg:
+	private final static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	
+	static {
+		map.put(1, 2);
+	}
+	public static void main(String[] args) {
+		map.put(2, 4);
+		System.out.println(map.get(1));
+	}
+
+4.Collections.unmodifiableXXXX:Clooection,List,Set,Map
+
+private static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+map = Collections.unmodifiableMap(map);==>抛出异常java.lang.UnsupportedOperationException
+
+Guava:ImmutableXXX:Clooection,List,Set,Map
+
+private static List<Integer, Integer> list = ImmutableList.of(1,2,3);
+list.add(4);==>抛出异常
+
+传入这个以后，对象里边的值也不能修改

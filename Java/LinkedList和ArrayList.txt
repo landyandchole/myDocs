@@ -1,2 +1,44 @@
 LinkedList:插入快，查询慢
 ArrayList:插入慢，查询快
+
+ArrayList 的扩容机制:
+public boolean add(E object) {
+    Object[] a = array;
+    int s = size;
+    //当放满时，扩容
+    if (s == a.length) {
+        //MIN_CAPACITY_INCREMENT 为常量，12
+        Object[] newArray = new Object[s +
+                (s < (MIN_CAPACITY_INCREMENT / 2) ?
+                 MIN_CAPACITY_INCREMENT : s >> 1)];
+        System.arraycopy(a, 0, newArray, 0, s);
+        array = a = newArray;
+    }
+    a[s] = object;
+    size = s + 1;
+    modCount++;
+    return true;
+}
+
+可以看到：
+
+当 ArrayList 的元素个数小于 6 时，容量达到最大时，元素容量会扩增 12；
+反之，增加 当前元素个数的一半。
+
+LinkedList 的扩容机制：
+public boolean add(E object) {
+    return addLastImpl(object);
+}
+
+private boolean addLastImpl(E object) {
+    Link<E> oldLast = voidLink.previous;
+    Link<E> newLink = new Link<E>(object, oldLast, voidLink);
+    voidLink.previous = newLink;
+    oldLast.next = newLink;
+    size++;
+    modCount++;
+    return true;
+}
+
+可以看到，没！有！扩容机制！
+这是由于 LinedList 实际上是一个双向链表，不存在元素个数限制，使劲加就行了。

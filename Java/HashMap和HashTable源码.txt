@@ -1,0 +1,59 @@
+HashMap:
+默认长度
+static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
+
+
+1 << 4   1的二进制是1,   <<的作用是把现在的二进制数往左移（相当于在原有二进制数后边加0）
+
+所以 1<<4  ==>10000(2进制)==>1*2^4
+所以 n<<x  ==>n*2^x
+
+
+
+
+超过size最大值
+        if (oldCap > 0) {
+            if (oldCap >= MAXIMUM_CAPACITY) {
+                threshold = Integer.MAX_VALUE;
+                return oldTab;
+            }
+            else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
+                     oldCap >= DEFAULT_INITIAL_CAPACITY)
+                newThr = oldThr << 1; // double threshold
+        }
+长度翻倍
+
+什么时候翻倍
+
+static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+当原map装填到原长75%，即扩张
+
+
+
+
+
+HashTable：
+默认长度：
+    public Hashtable(int initialCapacity) {
+        this(initialCapacity, 0.75f);
+    }
+
+    /**
+     * Constructs a new, empty hashtable with a default initial capacity (11)
+     * and load factor (0.75).
+     */
+    public Hashtable() {
+        this(11, 0.75f);
+    }
+默认长度11
+
+
+超过size最大值：
+int newCapacity = (oldCapacity << 1) + 1;
+
+扩张2n+1
+
+
+什么时候扩张==>0.75f
+size填充到75%时

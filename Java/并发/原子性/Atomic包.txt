@@ -1,0 +1,60 @@
+package com.lxm.concurrency.example.count;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.lxm.concurrency.annotations.NotThreadSafe;
+
+/**
+* 类说明
+* @author Komichi Aya
+* @date 2018-10-29
+*/
+@NotThreadSafe
+public class CountExample2 {
+	
+	//请求总数
+	public static int clientTotal = 5000;
+	
+	//同时并发执行的线程数
+	public static int threadTotal = 200;
+	
+	public static AtomicInteger count = new AtomicInteger(0);//工作内存中的数据，在Unsafe类中的getAndSetInt()方法中，
+																//调用native compareAndSwapInt()底层方法，比较工作内存中的数据是否与主内存中数据相同
+																//若相同，则进行增加操作
+	
+	public static void main(String[] args) {
+		ExecutorService executorService = Executors.newCachedThreadPool();//线程池
+		final Semaphore semaphore = new Semaphore(threadTotal);//信号量(并发数)
+		final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);//计数器，闭锁
+		
+		for (int i = 0; i < clientTotal; i++) {
+			executorService.execute(() -> {
+				try {
+					semaphore.acquire();
+					add();
+					semaphore.release();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				countDownLatch.countDown();
+			});
+		}
+		try {
+			countDownLatch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		executorService.shutdown();
+		System.out.println("count:	" + count.get());
+		
+	}
+	
+	private static void add() {
+		count.incrementAndGet();//先自增再取值
+		//count.getAndIncrement();//先取值再自增
+	}
+}
